@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SessionProviderWrapper } from "@/providers/session";
+import { ThemeProvider } from "@/providers/theme";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,11 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className="antialiased"
-      >
-        <SessionProviderWrapper>{children}</SessionProviderWrapper>
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased">
+        <ThemeProvider>
+          <SessionProviderWrapper>
+            <Header />
+            {children}
+          </SessionProviderWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );
